@@ -1,0 +1,303 @@
+ScreenManager:
+    LogInScreen:
+    Registrasi:
+    HomePage:
+
+
+<LogInScreen>:
+    name: 'login'
+    MDBoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: 'bg5.jpg'
+        MDTopAppBar:
+            title: "APLIKASI ANALISIS PRAKTIKUM FISIKA NUKLIR IRL BATAN"
+            right_action_items: [["alpha-x-box", lambda x: app.close_application()]]
+            md_bg_color: "#2B2730"
+        Label: 
+        MDCard:
+            size_hint: None, None
+            size: 300,450
+            pos_hint:{"center_x":0.5, "center_y":0.5}
+            elevation: 3
+            padding: 25
+            spacing: 25
+            orientation: 'vertical'
+            shadow_color: 0,0,1,.8
+
+            Label:
+                text: "LOGIN"
+                halign: "center"
+                color: "#9BCDD2"
+                font_size: 30
+                bold: True
+            MDTextField:
+                id: nm
+                hint_text: "Nama"
+                icon_right: "emoticon"
+                multiline: False
+                on_text_validate: usr.focus = True
+            MDTextField:
+                id: usr
+                hint_text: "Username"
+                icon_right: "account"
+                multiline: False
+                on_text_validate: psd.focus = True
+            MDTextField:
+                id: psd
+                hint_text: "Password"
+                icon_right: "eye-off"
+                password: True
+                multiline: False
+            MDFillRoundFlatButton:
+                id: cf
+                text: "Confirm"
+                text_color: "blue"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_release: root.login()
+            
+            GridLayout:
+                cols: 2
+                Label:
+                    text: "Belum Punya Akun?"
+                    font_size: 11
+                MDRectangleFlatIconButton:
+                    icon: "account-convert-outline"
+                    text: "CLICK HERE"
+                    theme_text_color: "Custom"
+                    text_color: "white"
+                    line_color: "red"
+                    theme_icon_color: "Custom"
+                    icon_color: "orange"
+                    on_press: root.manager.current = 'Register'
+
+        Label:
+
+
+<Registrasi>:
+    name: 'Register'
+    MDBoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: 'bg5.jpg'
+        MDTopAppBar:
+            title: "APLIKASI ANALISIS PRAKTIKUM FISIKA NUKLIR IRL BATAN"
+            font_name: "Comic"
+            md_bg_color: "#2B2730"
+            right_action_items: [["alpha-x-box", lambda x: app.close_application()]]
+        Label: 
+        MDCard:
+            size_hint: None, None
+            size: 300,450
+            pos_hint:{"center_x":0.5, "center_y":0.5}
+            elevation: 3
+            padding: 25
+            spacing: 25
+            orientation: 'vertical'
+            shadow_color: 0,0,1,.8
+
+            Label:
+                text: "REGISTER"
+                halign: "center"
+                color: "#9BCDD2"
+                font_size: 30
+                bold: True
+            MDTextField:
+                id: nam
+                hint_text: "Nama"
+                icon_right: "emoticon"
+                multiline: False
+                on_text_validate: uesr.focus = True
+            MDTextField:
+                id: uesr
+                hint_text: "Username"
+                icon_right: "account"
+                multiline: False
+                on_text_validate: pesd.focus = True
+            MDTextField:
+                id: pesd
+                hint_text: "Password"
+                icon_right: "eye-off"
+                password: True
+                multiline: False
+            MDFillRoundFlatButton:
+                id: cef
+                text: "Confirm"
+                text_color: "blue"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_press: root.regis()
+                on_press: root.manager.current = 'login'
+            MDRectangleFlatIconButton:
+                id: bck
+                text: "BACK"
+                font_size:18
+                text_color: "blue"
+                md_bg_color: "#9BCDD2"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_press: root.manager.current = 'login'
+
+        Label:
+
+<DrawerClickableItem@MDNavigationDrawerItem>
+    focus_color: "#e7e4c0"
+    text_color: "#4a4939"
+    icon_color: "#4a4939"
+    ripple_color: "#c5bdd2"
+    selected_color: "#0c6c4d"
+
+
+<DrawerLabelItem@MDNavigationDrawerItem>
+    text_color: "#4a4939"
+    icon_color: "#4a4939"
+    focus_behavior: False
+    selected_color: "#4a4939"
+    _no_ripple_effect: True
+
+
+<HomePage>:
+    name: 'halaman'
+    MDScreen:
+
+        MDNavigationLayout:
+
+            MDScreenManager:
+
+                MDScreen:
+
+                    MDTopAppBar:
+                        title: "APLIKASI ANALISIS PRAKTIKUM FISIKA NUKLIR IRL BATAN"
+                        elevation: 4
+                        pos_hint: {"top": 1}
+                        md_bg_color: "#9BCDD2"
+                        specific_text_color: "#4a4939"
+                        font_name: "Comic"
+                        right_action_items: [["alpha-x-box", lambda x: setattr(root.manager, 'current', 'login')]]
+                        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+                    
+                    ScreenManager:
+                        id: sm_sub
+                        orientation: "vertical"
+                        
+                        Screen:
+                            name: "halaman_awal"
+                            MDLabel: 
+                                text: "Selamat Datang"
+                                halign: 'center'
+                        
+                        Screen:
+                            name:"Menu1"
+                
+                            MDBoxLayout:
+                                orientation:'vertical'
+                                MDLabel:
+                                MDLabel:
+                                    text:"KALIBRASI DAYA REAKTOR"
+                                    font_size:20
+                                    halign:'center'
+                                MDRoundFlatIconButton:
+                                    id: Pilih_File
+                                    text: "Pilih File CSV"
+                                    icon: "folder"
+                                    pos_hint: {"center_x":.5,"center_y":.5}
+                                    on_release: app.file_manager_open(root_callback=app.kalibrasi_daya);
+                                MDLabel:
+
+                        Screen:
+                            name:"Menu2"
+                
+                            MDBoxLayout:
+                                orientation:'vertical'
+                                MDLabel:
+                                MDLabel:
+                                    text:"REAKTIVITAS BATANG KENDALI"
+                                    font_size:20
+                                    halign:'center'
+                                MDRoundFlatIconButton:
+                                    id: Pilih_File
+                                    text: "Pilih File CSV"
+                                    icon: "folder"
+                                    pos_hint: {"center_x":.5,"center_y":.5}
+                                    on_release: app.file_manager_open(root_callback=app.kalibrasi_batangkendali);
+                                
+                                MDLabel:
+
+                        Screen:
+                            name:"Menu3"
+                
+                            MDBoxLayout:
+                                orientation:'vertical'
+                                MDLabel:
+                                MDLabel:
+                                    text:"KOEFISIEN SUHU BAHAN BAKAR"
+                                    font_size:20
+                                    halign:'center'
+                                MDRoundFlatIconButton:
+                                    id: Pilih_File
+                                    text: "Pilih File CSV"
+                                    icon: "folder"
+                                    pos_hint: {"center_x":.5,"center_y":.5}
+                                    on_release: app.file_manager_open(root_callback=app.nilaikoefisiensuhu);
+                                
+                                MDLabel:
+
+                        Screen:
+                            name: "LABEL1"
+                            MDLabel: 
+                                text: "APLIKASI ON PROGRESS"
+                                pos_hint:{'center_x':1}
+
+            MDNavigationDrawer:
+                id: nav_drawer
+                
+                MDNavigationDrawerMenu:
+                    MDNavigationDrawerHeader:
+                        title: "PENGUKURAN KALIBRASI "
+                        spacing: "2dp"
+                        padding: "10dp", 0, 0, "56dp"
+                        
+                        Image:
+                            id: avatar
+                            size_hint: None, None
+                            size: "60dp", "60dp"
+                            source: "calibrasi1.png"
+                        
+                    DrawerClickableItem:
+                        text:"Homepage"
+                        icon: "home"
+                        on_release:
+                            sm_sub.current="halaman_awal"
+                    DrawerClickableItem:
+                        icon: "radioactive"
+                        text: "Kalibrasi Daya Reaktor"
+                        on_release:
+                            sm_sub.current="Menu1"
+                        
+                    DrawerClickableItem:
+                        icon: "radioactive-circle-outline"
+                        text: "REAKTIVITAS BATANG KENDALI"
+                        on_release:
+                            sm_sub.current="Menu2"
+
+                    DrawerClickableItem:
+                        text: "Koefisien Suhu Bahan Bakar"
+                        icon: "radioactive-circle"
+                        on_release:
+                            sm_sub.current="Menu3"
+                    
+                    MDNavigationDrawerDivider:
+
+                    MDNavigationDrawerLabel:
+                        text: "Kontak"
+
+                    DrawerClickableItem:
+                        icon: "information-outline"
+                        text: "Label"
+                        on_release:
+                            sm_sub.current="LABEL1"
+  
